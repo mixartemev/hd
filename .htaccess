@@ -1,0 +1,16 @@
+#php_flag display_errors off
+#php_value error_reporting 0
+
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+RewriteEngine On
+
+#RewriteCond %{HTTP_HOST} ^mcity.ru
+#RewriteRule (.*) http://www.mcity.ru/$1 [R=301,L]
+
+RewriteRule ^admin(/|)(.*)?$ /backend/web/$2 [L]
+RewriteRule ^([^/].*)?$ /frontend/web/$1 [L]
+
+#redirect 301 /page/apartments_neva_towers http://www.mcity.ru/page/architecture_neva_towers
