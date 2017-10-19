@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 
+require_once 'simple_html_dom.php'; // библиотека для парсинга
 //$this->title = 'My Yii Application';
 ?>
 <div class="site-index">
@@ -21,8 +22,8 @@
         ]);
         var_dump($data);
         foreach ($data as $row){
-	        $html = \garyjl\simplehtmldom\SimpleHTMLDom::file_get_html('http://www.cma-cgm.com/ebusiness/tracking/search?SearchBy=Container&Reference=' . $row['code']);
-	        var_dump($html->find('tr.date-provisional'));
+	        $html = file_get_html('http://www.cma-cgm.com/ebusiness/tracking/search?SearchBy=Container&Reference=' . $row['code'], false, null, 0);
+	        var_dump($html->find('tr.date-provisional', 0));
         }
         //
         ?>

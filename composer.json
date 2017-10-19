@@ -20,8 +20,7 @@
         "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-imagine": "*",
         "schmunk42/yii2-giiant": "@dev",
-        "moonlandsoft/yii2-phpexcel": "*",
-        "garyjl/yii2-simple_html_dom": "dev-master"
+        "moonlandsoft/yii2-phpexcel": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
