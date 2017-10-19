@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use moonland\phpexcel\Excel;
 use Yii;
 use yii\web\Controller;
 use yii\base\InvalidParamException;
@@ -78,6 +79,23 @@ class SiteController extends Controller
 	public function actionExcel()
 	{
 		return $this->render('excel');
+	}
+
+	/**
+	 * Displays homepage.
+	 *
+	 * @return string
+	 */
+	public function actionExcelExport()
+	{
+		$d = \app\models\User::find()->all();
+//var_dump($d);die;
+		Excel::export([
+			'models' => $d,
+			//'fileName' => 'fileName.xlsx',
+			//'columns' => ['column1', 'column3'], //without header working, because the header will be get label from attribute label.
+			//'headers' => ['column1' => 'Header Column 1', 'column3' => 'Header Column 3'],
+		]);
 	}
 
 	/**
