@@ -10,9 +10,14 @@ use app\models\TaskType;
  */
 class TaskTypeQuery extends \yii\db\ActiveQuery
 {
+    /*public function active()
+    {
+        return $this->andWhere('[[status]]=1');
+    }*/
+
     /**
      * @inheritdoc
-     * @return TaskType[]|null
+     * @return TaskType[]|array
      */
     public function all($db = null)
     {
@@ -21,7 +26,7 @@ class TaskTypeQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return TaskType|null
+     * @return TaskType|array|null
      */
     public function one($db = null)
     {
