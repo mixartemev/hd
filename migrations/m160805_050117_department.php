@@ -1,6 +1,6 @@
 <?php
 
-use console\models\Migrate;
+use app\models\Migrate;
 
 class m160805_050117_department extends Migrate
 {

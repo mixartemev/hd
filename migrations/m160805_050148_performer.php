@@ -1,6 +1,6 @@
 <?php
 
-use console\models\Migrate;
+use app\models\Migrate;
 
 class m160805_050148_performer extends Migrate
 {
@@ -12,7 +12,7 @@ class m160805_050148_performer extends Migrate
         ]);
         $this->addForeignKey('user', '{{%performer}}', 'user_id', '{{%user}}', 'id');
         $this->addForeignKey('department', '{{%performer}}', 'department_id', '{{%department}}', 'id');
-        $this->addForeignKey('chief', '{{%department}}', 'chief_id', '{{%performer}}', 'id');
+        $this->addForeignKey('chief', '{{%department}}', 'chief_id', '{{%performer}}', 'user_id');
 
     }
 
