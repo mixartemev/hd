@@ -2,9 +2,17 @@
 
 namespace app\models\base;
 
+use app\models\Action;
+use app\models\Performer;
+use app\models\query\ActionQuery;
+use app\models\query\PerformerQuery;
+use app\models\query\TaskQuery;
+use app\models\Task;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use app\models\query\UserQuery;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the base-model class for table "user".
@@ -21,11 +29,11 @@ use app\models\query\UserQuery;
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property \app\models\Action[] $actions
- * @property \app\models\Performer $performer
- * @property \app\models\Task[] $tasks
+ * @property Action[] $actions
+ * @property Performer $performer
+ * @property Task[] $tasks
  */
-abstract class User extends \yii\db\ActiveRecord
+abstract class User extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -82,27 +90,27 @@ abstract class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \app\models\query\ActionQuery
+     * @return ActionQuery | ActiveQuery
      */
     public function getActions()
     {
-        return $this->hasMany(\app\models\Action::className(), ['initiator_id' => 'id'])->inverseOf('initiator');
+        return $this->hasMany( Action::className(), [ 'initiator_id' => 'id'])->inverseOf('initiator');
     }
 
     /**
-     * @return \app\models\query\PerformerQuery
+     * @return PerformerQuery | ActiveQuery
      */
     public function getPerformer()
     {
-        return $this->hasOne(\app\models\Performer::className(), ['id' => 'id'])->inverseOf('id0');
+        return $this->hasOne( Performer::className(), [ 'id' => 'id'])->inverseOf('id0');
     }
 
     /**
-     * @return \app\models\query\TaskQuery
+     * @return TaskQuery | ActiveQuery
      */
     public function getTasks()
     {
-        return $this->hasMany(\app\models\Task::className(), ['customer_id' => 'id'])->inverseOf('customer');
+        return $this->hasMany( Task::className(), [ 'customer_id' => 'id'])->inverseOf('customer');
     }
 
     /**

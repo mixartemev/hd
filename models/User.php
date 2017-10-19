@@ -15,22 +15,29 @@ use yii\web\IdentityInterface;
  * @property string $username
  * @property string $name
  * @property string $password_hash
+ * @property string $password_reset_token
  * @property string $email
  * @property string $auth_key
- * @property string $confirm_token
+ * @property string $email_confirm_token
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
  *
+ * @property Action[] $actions
+ * @property Performer $performer
+ * @property Task[] $tasks
  * @property string $ava
+ *
+ * @property [] $statuses
  */
 class User extends BaseUser implements IdentityInterface
 {
 	const STATUS_BLOCKED = 0;
 	const STATUS_WAIT = 1;
 	const STATUS_ACTIVE = 2;
-	const STATUS_ADMIN = 3;
+    const STATUS_WORKER = 3;
+    const STATUS_ADMIN = 4;
 
 	public $statuses = [
 		self::STATUS_BLOCKED => 'Blocked',
@@ -73,7 +80,6 @@ class User extends BaseUser implements IdentityInterface
 			['status', 'in', 'range' => array_keys($this->statuses)],
 		];
 	}
-
 
 	/**
 	 * Finds user by username
@@ -247,6 +253,31 @@ class User extends BaseUser implements IdentityInterface
 	}
 	//////// IdentityInterface ////////
 
+
+    /**
+     * Removes password reset token
+     */
+    public function removePasswordResetToken()
+    {
+        $this->password_reset_token = null;
+    }
+
+    /**
+     * Removes email confirmation token
+     */
+    public function removeEmailConfirmToken()
+    {
+        $this->email_confirm_token = null;
+    }
+
+    /**
+     * @inheritdoc
+     * @return UserQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new UserQuery(get_called_class());
+    }
 
 	/**
 	 * @return string ava src

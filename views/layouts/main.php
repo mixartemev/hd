@@ -28,7 +28,10 @@ $this->beginPage() ?>
 <body>
 <?php $this->beginBody();
 
-$menuItems = [ ['label' => Yii::t('app','Tasks'), 'url' => ['/task/index'] ] ];
+$menuItems = [
+    ['label' => Yii::t('app','Excel'), 'url' => ['/site/excel'] ],
+    ['label' => Yii::t('app','Tasks'), 'url' => ['/task/index'] ],
+];
 
 if(!Yii::$app->user->isGuest) {
     /** @var \app\models\User $user */

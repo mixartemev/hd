@@ -3,13 +3,14 @@
 namespace app\models\query;
 
 use app\models\Action;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[Action]].
  *
  * @see Action
  */
-class ActionQuery extends \yii\db\ActiveQuery
+class ActionQuery extends ActiveQuery
 {
     /*public function active()
     {

@@ -30,7 +30,7 @@ class SiteController extends Controller
 #				'only' => ['logout', 'signup'],
 				'rules' => [
 					[
-						'actions' => ['login', 'error', 'contact', 'captcha'],
+						'actions' => ['login', 'error', 'contact', 'captcha', 'excel'],
 						'allow' => true,
 					],
 					[
@@ -68,6 +68,16 @@ class SiteController extends Controller
 				'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
 			],
 		];
+	}
+
+	/**
+	 * Displays homepage.
+	 *
+	 * @return string
+	 */
+	public function actionExcel()
+	{
+		return $this->render('excel');
 	}
 
 	/**

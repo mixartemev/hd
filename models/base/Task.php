@@ -2,11 +2,17 @@
 
 namespace app\models\base;
 
+use app\models\Action;
+use app\models\Performer;
+use app\models\query\PerformerQuery;
+use app\models\User;
 use app\models\query\ActionQuery;
 use app\models\query\TaskQuery;
 use app\models\query\TaskTypeQuery;
 use app\models\query\UserQuery;
+use app\models\TaskType;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -63,7 +69,7 @@ class Task extends ActiveRecord
     }
 
     /**
-     * @return ActionQuery
+     * @return ActionQuery | ActiveQuery
      */
     public function getActions()
     {
@@ -71,23 +77,23 @@ class Task extends ActiveRecord
     }
 
     /**
-     * @return UserQuery
+     * @return UserQuery | ActiveQuery
      */
     public function getCustomer()
     {
         return $this->hasOne(User::className(), ['id' => 'customer_id'])->inverseOf('tasks');
     }
 
-    /*
-     * @return PerformerQuery
-
+    /**
+     * @return PerformerQuery | ActiveQuery
+     */
     public function getPerformer()
     {
-        //return $this->hasOne(User::className(), ['id' => 'customer_id'])->inverseOf('tasks'); //todo Как найти исполнителя из Actions
-    }*/
+        return $this->hasOne(Performer::className(), ['id' => 'customer_id'])->inverseOf('tasks'); //todo Как найти исполнителя из Actions
+    }
 
     /**
-     * @return TaskQuery
+     * @return TaskQuery | ActiveQuery
      */
     public function getParent()
     {
@@ -95,7 +101,7 @@ class Task extends ActiveRecord
     }
 
     /**
-     * @return TaskQuery
+     * @return TaskQuery | ActiveQuery
      */
     public function getTasks()
     {
@@ -103,7 +109,7 @@ class Task extends ActiveRecord
     }
 
     /**
-     * @return TaskTypeQuery
+     * @return TaskTypeQuery | ActiveQuery
      */
     public function getTaskType()
     {
