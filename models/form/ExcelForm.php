@@ -63,7 +63,7 @@ class ExcelForm extends Model
 			    Excel::export([
 				    'models' => $d,
 				    'asArray' => true,
-				    'fileName' => $this->file->name,
+				    'fileName' => 'out.xlsx',
 				    'columns' => [0 => 'code', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 8 => 'date'], //without header working, because the header will be get label from attribute label.
 				    'headers' => ['code' => 'Контейнер №', 'b' => 'b', 'c' => 'c', 'd' => 'd', 'e' => 'e', 'f' => 'f', 'g' => 'g', 'h' => 'h', 'date' => 'Дата прибытия', ],
 			    ]);
