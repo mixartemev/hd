@@ -49,20 +49,22 @@ class ExcelForm extends Model
 			    //var_dump($data);
 			    foreach ($data as $k => $row){
 				    $html = file_get_html('http://www.cma-cgm.com/ebusiness/tracking/search?SearchBy=Container&Reference=' . $row['A'], false, null, 0);
-				    if($date = $html->find('tr', -1)){
-					    if($date = @$date->find('td.ph1', 0)){
-					    	$date = date('d.m.Y', strtotime($date->plaintext));
-						    $d[$k] =['code' => $row['A'], 'date' => $date];
+				    if($tr = $html->find('tr', -1)){
+					    if($date = @$tr->find('td.ph1', 0)){
+					    	$status = $tr->find('td.ph1', 1)->plaintext;
+						    if($status === 'Arrival final port of discharge'){
+							    $date = date('d.m.Y', strtotime($date->plaintext));
+							    $d[$k] =['code' => $row['A'], 'date' => $date];
+						    }
 					    }
 				    }
 			    }
-
 			    Excel::export([
 				    'models' => $d,
 				    'asArray' => true,
 				    'fileName' => $this->file->name,
 				    'columns' => [0 => 'code', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 8 => 'date'], //without header working, because the header will be get label from attribute label.
-				    'headers' => ['code' => 'Контейнер №', 'b' => 'b', 'c' => 'c', 'd' => 'd', 'e' => 'e', 'f' => 'f', 'g' => 'g', 'h' => 'h', 'date' => 'Дата прибытия'],
+				    'headers' => ['code' => 'Контейнер №', 'b' => 'b', 'c' => 'c', 'd' => 'd', 'e' => 'e', 'f' => 'f', 'g' => 'g', 'h' => 'h', 'date' => 'Дата прибытия', ],
 			    ]);
 		    }
         } else {
