@@ -48,13 +48,14 @@ class ExcelForm extends Model
 			    $d  = [];
 			    //var_dump($data);
 			    foreach ($data as $k => $row){
-				    $html = @file_get_html('http://www.cma-cgm.com/ebusiness/tracking/search?SearchBy=Container&Reference=' . $row['A'], false, null, 0);
-				    if($tr = @$html->find('tr', -1)){
-					    if($date = @$tr->find('td.ph1', 0)){
-					    	$status = $tr->find('td.ph1', 1)->plaintext;
-						    if($status === 'Arrival final port of discharge'){
-							    $date = date('d.m.Y', strtotime($date->plaintext));
-							    $d[$k] =['code' => $row['A'], 'date' => $date];
+				    if($html = @file_get_html('http://www.cma-cgm.com/ebusiness/tracking/search?SearchBy=Container&Reference=' . $row['A'], false, null, 0)){
+					    if($tr = $html->find('tr', -1)){
+						    if($date = @$tr->find('td.ph1', 0)){
+							    $status = $tr->find('td.ph1', 1)->plaintext;
+							    if($status === 'Arrival final port of discharge'){
+								    $date = date('d.m.Y', strtotime($date->plaintext));
+								    $d[$k] =['code' => $row['A'], 'date' => $date];
+							    }
 						    }
 					    }
 				    }
