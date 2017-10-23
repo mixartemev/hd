@@ -43,7 +43,7 @@ class ExcelForm extends Model
 			    /** @var array $data */
 			    $data = Excel::import($xls_path, [
 				    'setFirstRecordAsKeys' => false,
-				    'getOnlySheet' => 'sheet1',
+				    //'getOnlySheet' => 'sheet1',
 			    ]);
 			    $d  = [];
 			    //var_dump($data);
